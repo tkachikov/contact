@@ -15,11 +15,12 @@ class CreateContactsTable extends Migration
     {
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name', 50)->index();
-            $table->string('last_name', 50)->index();
-            $table->string('country', 50)->index();
-            $table->string('phone', 50)->index();
+            $table->string('first_name', 50);
+            $table->string('last_name', 50);
+            $table->string('country', 50);
+            $table->string('phone', 50);
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
     }
 

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 
 class Contact extends Seeder
@@ -24,8 +25,6 @@ class Contact extends Seeder
      */
     public function run()
     {
-        $date_start = Carbon::now();
-
         $this->max_chunk = $this->getMaxChunk();
 
         $db = DB::table('contacts');
@@ -57,8 +56,6 @@ class Contact extends Seeder
 
         foreach (collect($contacts)->chunk($this->max_chunk) as $contacts_chunk) {
             $db->insert($contacts_chunk->toArray());
-            $date_between = Carbon::now()->diffInSeconds($date_start);
-            $output->writeln("\r\n<info>Time: {$date_between}</info>");
             $progress->advance();
         }
 
