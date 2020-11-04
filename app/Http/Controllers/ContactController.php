@@ -22,7 +22,7 @@ class ContactController extends Controller
 
         foreach ($search_keys as $key => $val) {
             if ($val) {
-                $contacts = $contacts->where($key, $val);
+                $contacts = $contacts->where($key, 'like', "%{$val}%");
             }
         }
 
